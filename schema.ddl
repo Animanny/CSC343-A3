@@ -19,16 +19,11 @@ create table Campaigns (
     -- Unique id is the candidates email
     -- Each candidate can only have 1 campaign
     candidateEmail varchar(50) primary key,
+    -- EXTRA: constrain spending limits to positive values
     spendingLimit  numeric not null check (spendingLimit > 0) 
 );
 
-create table Debates (
-    -- Time, Candidate and Moderator is primary key
-
-    -- Manually Check that candidate isn't duplicate
-
-    -- TODO: Figure out the key for this and figure out it's exclusisons
-    
+create table Debates (    
     dID integer primary key,
     moderator varchar(50) not null,
     dTime timestamp not null,
@@ -44,6 +39,7 @@ create table DebateCandidates (
 create table Donors (
     email varchar(50) primary key,
     address varchar(50) not null,
+    -- EXTRA: constrain donation amounts to positive values
     amount numeric not null check (amount > 0),
     campaigns varchar(50) references Campaigns (candidateEmail)
 );
@@ -51,15 +47,15 @@ create table Donors (
 
 create table Workers (
     email varchar(50) primary key,
-    campaign_candidate varchar(50) references Campaigns (candidateEmail),
-    worker_type workerType not null
+    workerType workerType not null
 );
 
 create table ScheduledActivity(
-    worker_email varchar(50) references Workers (email),
-    schedule time,
+    worker varchar(50) references Workers (email),
+    campaignCandidate varchar(50) references Campaigns (candidateEmail),
+    schedule timestamp,
     activity campaignActivity,
-    primary key (schedule, Activity)
+    primary key (worker, schedule)
 );
 
 -- Assume debates don't overlap if they don't 

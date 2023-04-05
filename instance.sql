@@ -24,12 +24,14 @@ values
 
 insert into Workers
 values
-('denzel.washington@toronto.ca','isaac.newton@toronto.ca', 'volunteer'),
-('leo.dicaprio@toronto.ca','isaac.newton@toronto.ca', 'volunteer'),
-('james.earl.jones@toronto.ca','isaac.newton@toronto.ca', 'volunteer');
+('denzel.washington@toronto.ca', 'volunteer'),
+('leo.dicaprio@toronto.ca', 'staff'),
+('james.earl.jones@toronto.ca', 'volunteer');
 
 insert into ScheduledActivity
 values
-('denzel.washington@toronto.ca', time'2023-04-07 14:00:00', 'phone banks' ),
-('leo.dicaprio@toronto.ca', time'2023-04-08 17:00:00', 'phone banks' ),
-('james.earl.jones@toronto.ca', time'2023-04-08 08:00:00', 'phone banks' );
+('denzel.washington@toronto.ca', 'isaac.newton@toronto.ca', timestamp'2023-04-07 14:00:00', 'phone banks' ),
+('denzel.washington@toronto.ca', 'rene.descarte@toronto.ca', timestamp'2023-05-07 14:00:00', 'door-to-door canvassing' ),
+('denzel.washington@toronto.ca', 'leo.davinci@toronto.ca', timestamp'2023-06-07 14:00:00', 'phone banks' ),
+('leo.dicaprio@toronto.ca', 'isaac.newton@toronto.ca',  timestamp'2023-04-08 17:00:00', 'door-to-door canvassing' ),
+('james.earl.jones@toronto.ca', 'leo.davinci@toronto.ca', timestamp'2023-04-08 08:00:00', 'phone banks' );
