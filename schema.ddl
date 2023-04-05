@@ -6,6 +6,10 @@ create domain workerType as varchar(10)
     default 'volunteer'
     check(value in ('volunteer', 'staff'));
 
+create domain donatorType as varchar(10)
+    default 'individual'
+    check(value in ('individual', 'organization'));
+
 create domain campaignActivity as varchar(50)
     default 'phone banks'
     check(value in ('phone banks', 'door-to-door canvassing'));
@@ -13,6 +17,7 @@ create domain campaignActivity as varchar(50)
 create table Campaigns (
     -- One entry per campaign
     -- Unique id is the candidates email
+    -- Each candidate can only have 1 campaign
     candidate_email varchar(50) primary key,
     spending_limit int
 );
@@ -24,10 +29,15 @@ create table Debates (
 
     -- TODO: Figure out the key for this and figure out it's exclusisons
     
-    dID integer,
+    dID integer primary key,
     moderator varchar(50),
-    candidate varchar(50) references Campaigns (candidate_email),
     dTime timestamp
+);
+
+create table DebateCandidates (
+    dID integer references Debates (dID),
+    cID varchar(50) references Campaigns (candidate_email),
+    primary key( dID, cID )
 );
 
 create table Donors (
@@ -39,12 +49,15 @@ create table Donors (
 
 
 create table Workers (
-    worker varchar(50),
-    campaignID varchar(50) references Campaigns,
-    wType workerType,
+    email varchar(50) primary key,
+    campaign_candidate varchar(50) references Campaigns (candidate_email),
+    worker_type workerType
+);
+
+create table ScheduledActivity(
+    worker_email varchar(50) references Workers (email),
     schedule time,
-    Activity campaignActivity,
-    primary key(worker, campaignID)
+    Activity campaignActivity
 );
 
 -- Assume debates don't overlap if they don't 
