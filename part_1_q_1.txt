@@ -1,0 +1,7 @@
+
+a)
+
+D+ = DFGEIJKH; D -> FG doesn't violate BCNF ✅
+E+ = EHK; E -> HK violates BCNF ❌
+F+ = FEIJHK; F -> EIJ violates BCNF ❌ 
+F+ = FEIJHK; F -> K violates BCNF ❌ 

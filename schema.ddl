@@ -18,8 +18,8 @@ create table Campaigns (
     -- One entry per campaign
     -- Unique id is the candidates email
     -- Each candidate can only have 1 campaign
-    candidate_email varchar(50) primary key,
-    spending_limit int
+    candidateEmail varchar(50) primary key,
+    spendingLimit  numeric not null check (spendingLimit > 0) 
 );
 
 create table Debates (
@@ -30,34 +30,36 @@ create table Debates (
     -- TODO: Figure out the key for this and figure out it's exclusisons
     
     dID integer primary key,
-    moderator varchar(50),
-    dTime timestamp
+    moderator varchar(50) not null,
+    dTime timestamp not null,
+    unique ( moderator, dTime)
 );
 
 create table DebateCandidates (
     dID integer references Debates (dID),
-    cID varchar(50) references Campaigns (candidate_email),
+    cID varchar(50) references Campaigns (candidateEmail),
     primary key( dID, cID )
 );
 
 create table Donors (
     email varchar(50) primary key,
-    address varchar(50),
-    amount integer,
-    campaigns varchar(50) references Campaigns (candidate_email)
+    address varchar(50) not null,
+    amount numeric not null check (amount > 0),
+    campaigns varchar(50) references Campaigns (candidateEmail)
 );
 
 
 create table Workers (
     email varchar(50) primary key,
-    campaign_candidate varchar(50) references Campaigns (candidate_email),
-    worker_type workerType
+    campaign_candidate varchar(50) references Campaigns (candidateEmail),
+    worker_type workerType not null
 );
 
 create table ScheduledActivity(
     worker_email varchar(50) references Workers (email),
     schedule time,
-    Activity campaignActivity
+    activity campaignActivity,
+    primary key (schedule, Activity)
 );
 
 -- Assume debates don't overlap if they don't 
