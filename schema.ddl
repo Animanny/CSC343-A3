@@ -5,6 +5,8 @@
 --      - Cannot eliminate overlapping time
 --      - Prevent new entries with dates in 
 --        the past to be added (Requires Trigger)
+--      - Prevent candidates from being workers
+--        (requires cross table validation)
 -- DID NOT:
 --      - N/A
 -- EXTRA:
@@ -14,6 +16,8 @@
 --      - constrain donation amounts to positive values
 --      - constrain debates so only one can happen at a time
 --        such that moderators and candidates cannot be double booked
+--      - put both types of workers in 1 table with a workerType
+--        attribute to ensure workers are either staff or volunteer
 -- ASSUMPTIONS:
 --      - Assume each campaign is uniquely identified by
 --        the candidate's e-mail (only one candidate per campaign)
@@ -23,6 +27,11 @@
 --        shared e-mails between workers and donors
 --        since e-mails are the primary keys
 --      - Two debates cannot happen at the same time
+--      - Assume only total donations are kept track of for each donor
+--        and to each campaign
+--      - Candidates can be staff/volunteers
+--      - Assume worker activities aren't conflicting if they don't 
+--        start at the same time.
 
 drop schema if exists election cascade;
 create schema election;
@@ -32,7 +41,7 @@ create domain workerType as varchar(10)
     default 'volunteer'
     check(value in ('volunteer', 'staff'));
 
-create domain donatorType as varchar(10)
+create domain donatorType as varchar(12)
     default 'individual'
     check(value in ('individual', 'organization'));
 
@@ -58,10 +67,12 @@ create table DebateCandidates (
 );
 
 create table Donors (
-    email varchar(50) primary key,
+    email varchar(50)not null,
     address varchar(50) not null,
     amount numeric not null check (amount > 0),
-    campaigns varchar(50) references Campaigns (candidateEmail)
+    donorType donatorType not null, 
+    campaign varchar(50) references Campaigns (candidateEmail),
+    primary key ( email, donorType, campaign )
 );
 
 

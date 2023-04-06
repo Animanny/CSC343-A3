@@ -7,7 +7,7 @@ values
 insert into Debates
 values
 (1, 'albert.einstein@toronto.ca', timestamp'2023-05-02 12:00:00'),
-(2, 'albert.einstein@toronto.ca', timestamp'2023-05-02 12:00:00');
+(2, 'albert.einstein@toronto.ca', timestamp'2023-05-02 13:00:00');
 
 insert into DebateCandidates
 values
@@ -18,9 +18,11 @@ values
 
 insert into Donors
 values
-('betty.white@toronto.ca', '100 Maple Lane', 100, 'isaac.newton@toronto.ca'),
-('will.smith@toronto.ca', '100 Maple Lane', 250, 'rene.descarte@toronto.ca'),
-('julia.roberts@toronto.ca', '100 Maple Lane', 50, 'leo.davinci@toronto.ca');
+('betty.white@toronto.ca', '100 Maple Lane', 100, 'individual', 'isaac.newton@toronto.ca'),
+('will.smith@toronto.ca', '100 Maple Lane', 250, 'organization', 'rene.descarte@toronto.ca'),
+('jaden.smith@toronto.ca', '100 Maple Lane', 250, 'organization', 'rene.descarte@toronto.ca'),
+('will.smith@toronto.ca', '100 Maple Lane', 250, 'individual', 'rene.descarte@toronto.ca'),
+('julia.roberts@toronto.ca', '100 Maple Lane', 50, 'organization', 'leo.davinci@toronto.ca');
 
 insert into Workers
 values

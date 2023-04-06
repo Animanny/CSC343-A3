@@ -13,29 +13,29 @@ CREATE TABLE
 INSERT 0 3
 INSERT 0 2
 INSERT 0 4
-INSERT 0 3
+INSERT 0 5
 INSERT 0 3
 INSERT 0 5
 SET
 REVOKE
 GRANT
- sum |          email           
------+--------------------------
- 100 | betty.white@toronto.ca
-  50 | julia.roberts@toronto.ca
- 250 | will.smith@toronto.ca
+        candidate         | individual_contributions | organizational_contributions 
+--------------------------+--------------------------+------------------------------
+ isaac.newton@toronto.ca  |                      100 |                             
+ rene.descarte@toronto.ca |                      250 |                          500
+ leo.davinci@toronto.ca   |                          |                           50
 (3 rows)
 
 REVOKE
 GRANT
-            email             
+    vol_work_all_campaigns    
 ------------------------------
  denzel.washington@toronto.ca
 (1 row)
 
 REVOKE
 GRANT
-           cid           
+   cand_in_all_debates   
 -------------------------
  isaac.newton@toronto.ca
 (1 row)
