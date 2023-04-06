@@ -6,7 +6,8 @@ from srikan88;
 
 -- List total organizational donations and 
 -- total individual donations for each campaign
-grant select on Campaigns, Donors to srikan88;
+grant select (candidateEmail) on Campaigns to srikan88;
+grant select (amount, donorType, campaign) on Donors to srikan88;
 
 select campaigns.candidateEmail as candidate,
     individual_contributions,
@@ -31,17 +32,20 @@ Campaigns, Debates, DebateCandidates, Donors, Workers, ScheduledActivity
 from srikan88;
 
 -- Find those Volunteers who offer to work on every campaign in the dataset
-grant select on Workers, Campaigns, ScheduledActivity to srikan88;
+grant select (email, workerType) on Workers to srikan88;
+grant select (candidateEmail) on Campaigns to srikan88;
+grant select (worker, campaignCandidate) on ScheduledActivity to srikan88;
 
-select Volunteer.email as vol_work_all_campaigns
+select Volunteer.worker as vol_work_all_campaigns
 from (
-    select *
+    select worker, workerType, campaignCandidate
     from ScheduledActivity
     join Workers on ScheduledActivity.worker = Workers.email
     where Workers.workertype = 'volunteer'
     ) as Volunteer
-group by Volunteer.email
-having count(Volunteer.email) = (select count(*) from campaigns );
+group by Volunteer.worker
+having 
+count(distinct Volunteer.campaigncandidate) = (select count(*) from campaigns);
 
 
 revoke all on
@@ -50,7 +54,8 @@ from srikan88;
 
 
 -- Find candidates who are involved in every debate
-grant select on DebateCandidates, Debates to srikan88;
+grant select (cID, dID) on DebateCandidates to srikan88;
+grant select (dID) on Debates to srikan88;
 
 select cID as cand_in_all_debates
 from DebateCandidates

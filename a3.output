@@ -19,6 +19,7 @@ INSERT 0 5
 SET
 REVOKE
 GRANT
+GRANT
         candidate         | individual_contributions | organizational_contributions 
 --------------------------+--------------------------+------------------------------
  isaac.newton@toronto.ca  |                      100 |                             
@@ -28,12 +29,15 @@ GRANT
 
 REVOKE
 GRANT
+GRANT
+GRANT
     vol_work_all_campaigns    
 ------------------------------
  denzel.washington@toronto.ca
 (1 row)
 
 REVOKE
+GRANT
 GRANT
    cand_in_all_debates   
 -------------------------
