@@ -7,7 +7,7 @@ values
 insert into Debates
 values
 (1, 'albert.einstein@toronto.ca', timestamp'2023-05-02 12:00:00'),
-(2, 'albert.einstein@toronto.ca', timestamp'2023-05-02 13:00:00');
+(2, 'albert.einstein@toronto.ca', timestamp'2023-05-02 12:00:00');
 
 insert into DebateCandidates
 values
